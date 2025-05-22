@@ -6,7 +6,7 @@ participant "LangChain/LangGraph" as LG
 participant "Daum 검색 API" as Daum
 participant "카카오 톡캘린더 API" as KakaoCal
 
-사용자 --> "카카오 OIDC 소셜 로그인" : 로그인/로그아웃
+사용자 --> "카카오 로그인 API 서버" : 로그인/로그아웃
 사용자 --> UI : 대화 시작/메시지 입력
 
 UI --> LG : 메시지 전달
