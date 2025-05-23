@@ -1,12 +1,14 @@
 """
 에이전트 채팅
 """
-
 import streamlit as st
+
+from agent_graph import graph
+
 
 def chat():
     """
-    에이전트 채팅 (현재 Dummy Response)
+    에이전트 채팅
     """
     # 만약 발급받은 토큰이 없다면 대화창을 출력하지 않음
     if not st.session_state.get("token"):
@@ -30,12 +32,25 @@ def chat():
         # 사용자 메시지 채팅 히스토리 추가
         st.session_state.messages.append({"role": "user", "content": prompt})
 
-        # Dummy Response 추가
-        response = f"Echo: {prompt}"
-
-        # Assistant 메시지 출력
         with st.chat_message("assistant"):
-            st.markdown(response)
+            response = st.write_stream(response_generator(st.session_state.messages))
 
-        # Assistant 메시지 채팅 히스토리 추가
         st.session_state.messages.append({"role": "assistant", "content": response})
+
+
+def response_generator(messages):
+    """
+    청크 단위 스트리밍을 위한 async 제너레이터 반환
+    """
+    async def _stream():
+        """
+        스트리밍 제너레이터
+        """
+        async for chunk, _ in graph.astream(input={"messages": messages}, stream_mode="messages"):
+            # chunk.content 가 비어있지 않으면 그대로 내보냄
+            content = getattr(chunk, "content", None)
+            if content:
+                yield content
+
+    # async 제너레이터 객체 자체를 반환
+    return _stream()
