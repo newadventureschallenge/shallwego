@@ -3,7 +3,7 @@ import os
 import requests
 from langchain_core.tools import tool
 
-from schemas.search_schemas import WebSearchRequest
+from schemas.search_schemas import RequestWebSearch
 from tools.tool_helpers import handle_tool_exceptions
 from utils import api_endpoints
 
@@ -11,7 +11,7 @@ from utils import api_endpoints
 @tool
 @handle_tool_exceptions("웹 문서 검색하기")
 def daum_web_search(
-        request: WebSearchRequest
+        request: RequestWebSearch
 ):
     """Kakao API를 사용하여 Daum 웹 검색을 실행합니다."""
     rest_api_key = os.environ.get("KAKAO_APP_REST_API_KEY")

@@ -13,14 +13,17 @@ def handle_tool_exceptions(tool_name: str):
             try:
                 return func(*args, **kwargs)
             except requests.exceptions.HTTPError as e:
+                print(f"{tool_name} HTTP 오류 발생: {e.response.status_code} - {e.response.text}")
                 return {
                     "error": f"{tool_name} HTTP 오류 발생: {e.response.status_code} - {e.response.text}"
                 }
             except requests.exceptions.Timeout:
+                print(f"{tool_name} 요청이 시간 초과되었습니다.")
                 return {
                     "error": f"{tool_name} 요청이 시간 초과되었습니다. 다시 시도해주세요."
                 }
             except Exception as e:
+                print(f"{tool_name} 중 오류 발생: {str(e)}")
                 return {
                     "error": f"{tool_name} 중 오류 발생: {str(e)}"
                 }

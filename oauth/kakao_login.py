@@ -2,12 +2,11 @@
 카카오 로그인 및 사용자 정보 가져오기
 """
 
-import os
-
 import requests
 import streamlit as st
-
 from authlib.integrations.requests_client import OAuth2Session
+
+from utils import api_endpoints
 
 # 설정 로드
 conf = st.secrets["auth"]["kakao"]
@@ -28,7 +27,7 @@ def handle_oauth_callback():
     if params.get("code"):
         try:
             token = oauth.fetch_token(
-                os.getenv("KAKAO_API_TOKEN"),
+                api_endpoints.KAKAO_API_TOKEN,
                 code=params["code"],
             )
             st.session_state.token = token
@@ -45,7 +44,7 @@ def fetch_user_info(access_token):
         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
     }
 
-    return requests.get(os.getenv("KAKAO_API_USER"), headers=headers)
+    return requests.get(api_endpoints.KAKAO_API_USER, headers=headers)
 
 
 def display_user_info(access_token):
@@ -61,15 +60,6 @@ def display_user_info(access_token):
             st.session_state.user_nickname = nickname
 
             st.success(f"👋 **{nickname}**님, 안녕하세요!")
-
-            url = "https://kapi.kakao.com/v2/api/calendar/calendars"
-            response = requests.get(url, headers={"Authorization": f"Bearer {access_token}"})
-            if response.status_code == 200:
-                calendars = response.json()
-                st.write(calendars)
-            else:
-                st.error(f"캘린더 API 호출 실패: {response.status_code}")
-                st.error(f"응답 내용: {response.text}")
 
         else:
             st.error(f"카카오 API 호출 실패: {response.status_code}")
@@ -89,7 +79,7 @@ def show_logout_button():
 
 def show_login_button():
     """카카오 로그인 버튼을 표시"""
-    auth_url, _ = oauth.create_authorization_url(os.getenv("KAKAO_API_OAUTH"))
+    auth_url, _ = oauth.create_authorization_url(api_endpoints.KAKAO_API_OAUTH)
     st.markdown(f'<a href="{auth_url}" target="_self">카카오 로그인</a>', unsafe_allow_html=True)
 
 

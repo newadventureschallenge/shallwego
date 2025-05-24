@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import BaseModel, Field
 
 
-class WebSearchRequest(BaseModel):
+class RequestWebSearch(BaseModel):
     """웹 문서 검색하기"""
     query: str = Field(..., description="검색을 원하는 질의어")
     sort: Optional[str] = Field("accuracy", description="결과 문서 정렬 방식, accuracy(정확도순) 또는 recency(최신순), 기본 값 accuracy")
