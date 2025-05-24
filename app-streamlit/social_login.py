@@ -67,10 +67,13 @@ def display_user_info(access_token):
 
         if response.status_code == 200:
             resp = response.json()
+
+            user_id = resp["id"]
             nickname = resp["properties"]["nickname"]
 
             # 닉네임을 세션 상태에 저장
             st.session_state.user_nickname = nickname
+            st.session_state.user_id = user_id
 
             st.success(f"👋 **{nickname}**님, 안녕하세요!")
 
@@ -93,7 +96,6 @@ def show_logout_button():
 def show_login_button():
     """카카오 로그인 버튼을 표시"""
     auth_url, _ = oauth.create_authorization_url(api_endpoints.KAKAO_API_OAUTH)
-    #st.markdown(f'<a href="{auth_url}" target="_self">카카오 로그인</a>', unsafe_allow_html=True)
 
     button_style = """
     <style>

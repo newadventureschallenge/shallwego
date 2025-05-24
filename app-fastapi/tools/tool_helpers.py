@@ -7,8 +7,6 @@ import os
 
 import requests
 
-from oauth.kakao_login import ensure_valid_token
-
 
 def handle_tool_exceptions(tool_name: str):
     """
@@ -19,9 +17,6 @@ def handle_tool_exceptions(tool_name: str):
         def wrapper(*args, **kwargs):
             print(f"{tool_name} 실행")
             try:
-                access_token = ensure_valid_token()
-                kwargs['state']['access_token'] = access_token
-
                 result = func(*args, **kwargs)
                 if isinstance(result, requests.Response):
                     # status 코드가 200이 아닐 경우 예외 발생
