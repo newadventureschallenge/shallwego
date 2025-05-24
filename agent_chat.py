@@ -2,6 +2,7 @@
 에이전트 채팅
 """
 import streamlit as st
+from langchain_core.messages import ToolMessage
 
 from agent_graph import graph
 
@@ -18,6 +19,10 @@ def chat():
     # 채팅 상태 초기화
     if "messages" not in st.session_state:
         st.session_state.messages = []
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": "안녕하세요! 당신의 여행 에이전트, '갈까요' 입니다. 무엇을 도와드릴까요?"
+        })
 
     # 채팅 히스토리 출력
     for message in st.session_state.messages:
@@ -48,6 +53,9 @@ def response_generator(messages):
         """
         async for chunk, _ in graph.astream(input={"messages": messages}, stream_mode="messages"):
             # chunk.content 가 비어있지 않으면 그대로 내보냄
+            if isinstance(chunk, ToolMessage):
+                continue
+
             content = getattr(chunk, "content", None)
             if content:
                 yield content
