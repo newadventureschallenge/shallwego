@@ -1,3 +1,7 @@
+"""
+Daum 검색 API 스키마 정의
+"""
+
 from typing import Optional
 
 from pydantic import BaseModel, Field

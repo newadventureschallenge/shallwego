@@ -8,17 +8,29 @@ KAKAO_API_USER = "https://kapi.kakao.com/v2/user/me"
 
 KAKAO_DAUM_SEARCH_URL = "https://dapi.kakao.com/v2/search/web"
 
+KAKAO_CALENDAR_V1_BASE_URL = "https://kapi.kakao.com/v1/api/calendar"
 KAKAO_CALENDAR_BASE_URL = "https://kapi.kakao.com/v2/api/calendar"
 
 KAKAO_GET_CALENDAR_URL = f"{KAKAO_CALENDAR_BASE_URL}/calendars"
 KAKAO_CREATE_CALENDAR_URL = f"{KAKAO_CALENDAR_BASE_URL}/create/calendar"
 KAKAO_UPDATE_CALENDAR_URL = f"{KAKAO_CALENDAR_BASE_URL}/update/calendar"
 KAKAO_DELETE_CALENDAR_URL = f"{KAKAO_CALENDAR_BASE_URL}/delete/calendar"
+KAKAO_GET_HOLIDAYS_URL = f"{KAKAO_CALENDAR_BASE_URL}/holidays"
 
 KAKAO_CREATE_EVENT_URL = f"{KAKAO_CALENDAR_BASE_URL}/create/event"
 KAKAO_GET_EVENTS_URL = f"{KAKAO_CALENDAR_BASE_URL}/events"
 KAKAO_GET_EVENT_URL = f"{KAKAO_CALENDAR_BASE_URL}/event"
 KAKAO_UPDATE_EVENT_URL = f"{KAKAO_CALENDAR_BASE_URL}/update/event/host"
 KAKAO_DELETE_EVENT_URL = f"{KAKAO_CALENDAR_BASE_URL}/delete/event"
+
+KAKAO_CREATE_TASK_URL = f"{KAKAO_CALENDAR_V1_BASE_URL}/create/task"
+KAKAO_GET_TASKS_URL = f"{KAKAO_CALENDAR_V1_BASE_URL}/tasks"
+KAKAO_RECORDS_TASK_URL = f"{KAKAO_CALENDAR_V1_BASE_URL}/records/task"
+KAKAO_UPDATE_TASK_URL = f"{KAKAO_CALENDAR_V1_BASE_URL}/update/task"
+KAKAO_COMPLETE_TASK_URL = f"{KAKAO_CALENDAR_V1_BASE_URL}/complete/task"
+KAKAO_DELETE_TASK_URL = f"{KAKAO_CALENDAR_V1_BASE_URL}/delete/task"
+
+KAKAO_LOCAL_SEARCH_KEYWORD_URL = "https://dapi.kakao.com/v2/local/search/keyword.json"
+KAKAO_LOCAL_SEARCH_CATEGORIES_URL = "https://dapi.kakao.com/v2/local/search/category.json"
 
 API_TIMEOUT = 10

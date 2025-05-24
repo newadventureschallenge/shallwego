@@ -1,3 +1,7 @@
+"""
+톡캘린더 일정 관련 API 스키마 정의
+"""
+
 from typing import Optional
 
 from pydantic import BaseModel, Field

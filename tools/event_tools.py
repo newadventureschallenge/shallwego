@@ -1,3 +1,7 @@
+"""
+카카오 API를 사용하여 일정 관련 작업을 수행하는 Tool Node 입니다.
+"""
+
 import json
 from typing import Annotated
 
@@ -6,7 +10,8 @@ from langchain_core.tools import tool
 from langgraph.prebuilt import InjectedState
 
 from agent.agent_state import State
-from schemas.event_schemas import RequestCreateEvent, RequestGetEvents, RequestDeleteEvent, RequestUpdateEvent
+from schemas.event_schemas import RequestCreateEvent, RequestGetEvents, RequestDeleteEvent, RequestUpdateEvent, \
+    RequestGetEvent
 from tools.tool_helpers import get_access_token_header, handle_tool_exceptions
 from utils import api_endpoints
 
@@ -39,7 +44,7 @@ def create_event(
         timeout=api_endpoints.API_TIMEOUT
     )
 
-    return response.json()
+    return response
 
 
 @tool
@@ -54,18 +59,18 @@ def get_event_list(
     response = requests.get(
         url=api_endpoints.KAKAO_GET_EVENTS_URL,
         headers=get_access_token_header(state.access_token),
-        params=request.model_dump(),
+        params=request.model_dump(by_alias=True),
         timeout=api_endpoints.API_TIMEOUT
     )
 
-    return response.json()
+    return response
 
 
 @tool
 @handle_tool_exceptions("일반 일정 상세 조회")
 def get_event_detail(
         state: Annotated[State, InjectedState],
-        request: RequestGetEvents,
+        request: RequestGetEvent,
 ):
     """
     카카오 캘린더 API를 사용하여 일반 일정의 상세 정보를 조회합니다.
@@ -77,7 +82,7 @@ def get_event_detail(
         timeout=api_endpoints.API_TIMEOUT
     )
 
-    return response.json()
+    return response
 
 
 @tool
@@ -108,7 +113,7 @@ def update_event(
         timeout=api_endpoints.API_TIMEOUT
     )
 
-    return response.json()
+    return response
 
 
 @tool
@@ -127,4 +132,4 @@ def delete_event(
         timeout=api_endpoints.API_TIMEOUT
     )
 
-    return response.json()
+    return response
