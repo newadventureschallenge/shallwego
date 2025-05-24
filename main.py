@@ -5,8 +5,8 @@ import streamlit as st
 
 from dotenv import load_dotenv
 
-from agent_chat import chat
-from kakao_login import manage_kakao_auth
+from agent.agent_chat import chat
+from oauth.kakao_login import manage_kakao_auth
 
 load_dotenv()
 

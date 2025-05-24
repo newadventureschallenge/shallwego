@@ -62,6 +62,15 @@ def display_user_info(access_token):
 
             st.success(f"👋 **{nickname}**님, 안녕하세요!")
 
+            url = "https://kapi.kakao.com/v2/api/calendar/calendars"
+            response = requests.get(url, headers={"Authorization": f"Bearer {access_token}"})
+            if response.status_code == 200:
+                calendars = response.json()
+                st.write(calendars)
+            else:
+                st.error(f"캘린더 API 호출 실패: {response.status_code}")
+                st.error(f"응답 내용: {response.text}")
+
         else:
             st.error(f"카카오 API 호출 실패: {response.status_code}")
             st.error(f"응답 내용: {response.text}")
@@ -91,8 +100,7 @@ def manage_kakao_auth():
 
     # 로그인 상태에 따라 다른 UI 표시
     if st.session_state.get("token"):
-        access_token = st.session_state.token.get("access_token")
-        display_user_info(access_token)
+        display_user_info(st.session_state.token.get("access_token"))
         show_logout_button()
     else:
         show_login_button()
