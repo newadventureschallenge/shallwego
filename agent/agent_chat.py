@@ -6,6 +6,7 @@ from langchain_core.messages import ToolMessage
 from langchain_core.runnables import RunnableConfig
 
 from agent.agent_graph import graph
+from oauth.kakao_login import ensure_valid_token
 
 
 def chat():
@@ -17,6 +18,7 @@ def chat():
         st.warning("로그인 후 사용 가능합니다.")
         return
 
+    ensure_valid_token()
     access_token = st.session_state.token.get("access_token")
 
     # 채팅 상태 초기화
@@ -74,8 +76,7 @@ def response_generator(access_token, messages):
         async for chunk, _ in graph.astream(
                 input={"access_token": access_token, "messages": messages},
                 stream_mode="messages",
-                config=config,
-                # interrupt_before=["tools"]
+                config=config
         ):
             # chunk.content 가 비어있지 않으면 그대로 내보냄
             if isinstance(chunk, ToolMessage):

@@ -12,4 +12,5 @@ dependencies = [
     "pylint>=3.3.7",
     "python-dotenv>=1.1.0",
     "streamlit>=1.45.1",
+    "streamlit-cookies-controller>=0.0.4",
 ]
