@@ -3,7 +3,7 @@ actor 사용자
 
 participant "Streamlit 챗봇 UI" as UI
 participant "LangChain/LangGraph" as LG
-participant "Daum 검색 API" as Daum
+participant "Daum 검색, 카카오맵 로컬 API" as Daum
 participant "카카오 톡캘린더 API" as KakaoCal
 
 사용자 --> "카카오 로그인 API 서버" : 로그인/로그아웃
@@ -12,20 +12,11 @@ participant "카카오 톡캘린더 API" as KakaoCal
 UI --> LG : 메시지 전달
 LG --> Daum : 여행 장소 검색
 Daum --> LG : 검색 결과 반환
-LG --> UI : 캘린더/일정/할 일 CRUD 요청 템플릿
+LG --> UI : 검색 결과 및 여행 계획서 제공
 
-UI --> 사용자 : 수락/거절 버튼 표시
-사용자 --> UI : 수락 또는 거절 선택
-
-alt 사용자가 수락
-  UI --> LG : 수락 정보 전달
-  LG --> KakaoCal : 캘린더/일정/할 일 CRUD 요청
-  KakaoCal --> LG : API 응답
-  LG --> UI : 요청 결과 답변 생성 및 반환
-else 사용자가 거절
-  UI --> LG : 거절 정보 전달
-  LG --> UI : 작업 취소 안내 메시지 반환
-end
+LG --> KakaoCal : 캘린더/일정/할 일 CRUD 요청
+KakaoCal --> LG : API 응답
+LG --> UI : 요청 결과 답변 생성 및 반환
 
 UI --> 사용자 : 답변 표시
 @enduml
