@@ -1,11 +1,6 @@
 """
 카카오 API 엔드포인트 정의
 """
-
-KAKAO_API_OAUTH = "https://kauth.kakao.com/oauth/authorize"
-KAKAO_API_TOKEN = "https://kauth.kakao.com/oauth/token"
-KAKAO_API_USER = "https://kapi.kakao.com/v2/user/me"
-
 KAKAO_DAUM_SEARCH_URL = "https://dapi.kakao.com/v2/search/web"
 
 KAKAO_CALENDAR_V1_BASE_URL = "https://kapi.kakao.com/v1/api/calendar"

@@ -4,12 +4,14 @@ import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
+from agent.agent_graph import build_chatbot_graph
 from routers import chat_router
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     try:
+        app.state.graph = await build_chatbot_graph('chatbot-agent')
         yield
     finally:
         pass

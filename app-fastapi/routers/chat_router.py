@@ -2,7 +2,7 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from langchain_core.messages import ToolMessage
 from langchain_core.runnables import RunnableConfig
 
-from agent.agent_graph import graph
+from agent.agent_graph import get_graph
 from schemas.chat_schemas import ChatRequest
 
 router = APIRouter(prefix="", tags=["chat"])
@@ -22,6 +22,8 @@ async def websocket_endpoint(websocket: WebSocket):
             recursion_limit=10,  # 최대 10개의 노드까지 방문. 그 이상은 RecursionError 발생
             configurable={"thread_id": req.user_id},  # 스레드 ID 설정
         )
+
+        graph = get_graph('chatbot-agent')  # 그래프 가져오기
 
         async for chunk, _ in graph.astream(
                 input={"access_token": req.access_token, "messages": req.message},

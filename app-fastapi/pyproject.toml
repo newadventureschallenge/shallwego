@@ -4,11 +4,13 @@ version = "0.1.0"
 description = "Add your description here"
 requires-python = ">=3.13"
 dependencies = [
+    "aiosqlite>=0.21.0",
     "fastapi[standard]>=0.115.12",
     "langchain>=0.3.25",
     "langchain-core>=0.3.61",
     "langchain-openai>=0.3.18",
     "langgraph>=0.4.7",
+    "langgraph-checkpoint-sqlite>=2.0.10",
     "orjson>=3.10.18",
     "pylint>=3.3.7",
     "tzdata>=2025.2",
