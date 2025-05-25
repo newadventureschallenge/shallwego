@@ -3,6 +3,8 @@ Streamlit 메인 페이지
 """
 import streamlit as st
 
+from options import side_options
+
 st.set_page_config(
     page_title="갈까요-Shall We Go",
     page_icon="resources/mascot_icon.png",
@@ -19,5 +21,6 @@ st.title("갈까요-Shall We Go")
 
 with st.sidebar:
     manage_kakao_auth()
+    side_options()
 
 chat()

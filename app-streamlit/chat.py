@@ -67,7 +67,12 @@ def chat():
         assistant_index = len(st.session_state.messages) - 1
 
         ws = create_connection(api_endpoints.CHAT_API_URL)
-        req = ChatRequest(message=prompt, user_id=user_id, access_token=access_token).model_dump()
+        req = ChatRequest(
+            message=prompt,
+            user_id=user_id,
+            access_token=access_token,
+            model_id=st.session_state.llm
+        ).model_dump()
         full_response = ""
 
         try:
@@ -84,7 +89,15 @@ def chat():
                     except orjson.JSONDecodeError:
                         continue
 
-                    full_response += message['messages']
+                    parts = message.get("messages", [])
+
+                    if isinstance(parts, list):
+                        for chunk in parts:
+                            # 안전하게 text 키를 꺼내서 더하기
+                            full_response += chunk.get("text", "")
+                    else:
+                        full_response += str(parts)
+
                     st.session_state.messages[assistant_index]['content'] = full_response
                     assistant_placeholder.markdown(full_response, unsafe_allow_html=True)
                     time.sleep(0.01) # UI 업데이트를 위한 짧은 대기

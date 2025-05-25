@@ -5,13 +5,15 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from agent.agent_graph import build_chatbot_graph
+from core.db_session import init_db
 from routers import chat_router
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     try:
-        app.state.graph = await build_chatbot_graph('chatbot-agent')
+        init_db()
+        await build_chatbot_graph('chatbot-agent')
         yield
     finally:
         pass

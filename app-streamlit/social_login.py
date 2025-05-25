@@ -90,6 +90,7 @@ def show_logout_button():
     if st.button("로그아웃"):
         if "token" in st.session_state:
             del st.session_state.token
+            cookie_controller.remove('token')
         st.rerun()
 
 

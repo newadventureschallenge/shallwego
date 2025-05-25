@@ -8,3 +8,4 @@ class ChatRequest(BaseModel):
     message: str
     user_id: str
     access_token: str
+    model_id: str
