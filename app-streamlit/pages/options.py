@@ -1,6 +1,7 @@
 import requests
 import streamlit as st
 
+from dataset.test_dataset import run_dataset_test
 from utils import api_endpoints
 
 
@@ -28,3 +29,6 @@ def side_options():
             st.success('전체 대화가 삭제되었습니다.')
         else:
             st.error(f'대화 삭제 실패: {response.status_code} - {response.text}')
+
+    if st.button("데이터 셋 테스트"):
+        run_dataset_test()

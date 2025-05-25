@@ -3,17 +3,16 @@ Streamlit 메인 페이지
 """
 import streamlit as st
 
-from options import side_options
-
 st.set_page_config(
     page_title="갈까요-Shall We Go",
     page_icon="resources/mascot_icon.png",
 )
 
+from pages.options import side_options
 from dotenv import load_dotenv
 
-from chat import chat
-from social_login import manage_kakao_auth
+from pages.chat import chat
+from pages.social_login import manage_kakao_auth
 
 load_dotenv()
 
