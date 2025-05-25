@@ -7,6 +7,7 @@ from agent.agent_graph import get_graph
 from agent.agent_state import initialize_sqlite_memory
 from core.db_session import get_session
 from schemas.chat_schemas import ChatRequest
+from utils.filtering import is_filtered
 
 router = APIRouter(prefix="", tags=["chat"])
 
@@ -20,6 +21,11 @@ async def websocket_endpoint(websocket: WebSocket):
         payload = await websocket.receive_json()
         # Pydantic 모델로 변환
         req = ChatRequest(**payload)
+
+        if await is_filtered(req.message):
+            await websocket.send_json({"error": "Filtered content detected."})
+            await websocket.close()
+            return
 
         config = RunnableConfig(
             recursion_limit=100,
