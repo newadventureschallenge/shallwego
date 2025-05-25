@@ -28,4 +28,6 @@ KAKAO_DELETE_TASK_URL = f"{KAKAO_CALENDAR_V1_BASE_URL}/delete/task"
 KAKAO_LOCAL_SEARCH_KEYWORD_URL = "https://dapi.kakao.com/v2/local/search/keyword.json"
 KAKAO_LOCAL_SEARCH_CATEGORIES_URL = "https://dapi.kakao.com/v2/local/search/category.json"
 
+LANGFUSE_HOST = "https://us.cloud.langfuse.com"
+
 API_TIMEOUT = 10
