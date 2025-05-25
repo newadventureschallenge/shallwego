@@ -11,6 +11,10 @@ from schemas.chat_schemas import ChatRequest
 from social_login import ensure_valid_token
 from utils import api_endpoints
 
+avatar_icon = {
+    'user': 'resources/traveler_icon.png',
+    'assistant': 'resources/mascot_icon.png'
+}
 
 def chat():
     """
@@ -19,6 +23,7 @@ def chat():
     # 만약 발급받은 토큰이 없다면 대화창을 출력하지 않음
     if not st.session_state.get("token"):
         st.warning("로그인 후 사용 가능합니다.")
+        st.image('resources/front_image.png')
         return
 
     access_token = str(st.session_state.token.get("access_token"))
@@ -29,7 +34,7 @@ def chat():
         st.session_state.messages = []
         st.session_state.messages.append({
             "role": "assistant",
-            "content": "안녕하세요! 당신의 여행 에이전트, '갈까요' 입니다. 무엇을 도와드릴까요?"
+            "content": "🌏 안녕하세요! 당신의 여행 에이전트, '갈까요' 입니다. 무엇을 도와드릴까요?"
         })
 
     if "consent_pending" not in st.session_state:  # 동의 대기 중인지 여부
@@ -40,7 +45,8 @@ def chat():
 
     # 채팅 히스토리 출력
     for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
+        avatar = avatar_icon[message["role"]]
+        with st.chat_message(message["role"], avatar=avatar):
             st.markdown(message["content"])
 
     # 대화 입력
@@ -49,11 +55,12 @@ def chat():
         ensure_valid_token()
 
         # 사용자 메시지 출력
-        st.chat_message("user").markdown(prompt)
+        with st.chat_message("user", avatar=avatar_icon["user"]):
+            st.markdown(prompt)
 
         # 사용자 메시지 채팅 히스토리 추가
         st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar=avatar_icon["assistant"]):
             assistant_placeholder = st.empty()
 
         st.session_state.messages.append({"role": "assistant", "content": ""})
