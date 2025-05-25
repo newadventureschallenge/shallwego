@@ -8,12 +8,6 @@ def side_options():
     if not st.session_state.get("token"):
         return
 
-    if "show_confirm" not in st.session_state:
-        st.session_state.show_confirm = False
-
-    if st.button("전체 대화 삭제"):
-        st.session_state.show_confirm = True  # 모달 열기
-
     options = ["openai-gpt-4.1-mini", "google-gemini-2.5-flash-preview-05-20", "anthropic-claude-3-5-haiku-latest"]
 
     # 세션에 없으면 첫 번째 옵션을 기본값으로 설정
