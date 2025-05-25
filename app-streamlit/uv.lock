@@ -33,6 +33,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "authlib" },
+    { name = "cryptography" },
     { name = "orjson" },
     { name = "pydantic" },
     { name = "python-dotenv" },
@@ -44,6 +45,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "authlib", specifier = ">=1.6.0" },
+    { name = "cryptography", specifier = ">=45.0.2" },
     { name = "orjson", specifier = ">=3.10.18" },
     { name = "pydantic", specifier = ">=2.11.5" },
     { name = "python-dotenv", specifier = ">=1.1.0" },

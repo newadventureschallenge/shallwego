@@ -7,6 +7,8 @@ import os
 
 import requests
 
+from utils.encryption import decrypt_message
+
 
 def handle_tool_exceptions(tool_name: str):
     """
@@ -51,7 +53,7 @@ def get_access_token_header(access_token: str):
     """
     액세스 토큰을 사용하여 인증 헤더를 생성합니다.
     """
-    return {"Authorization": f"Bearer {access_token}"}
+    return {"Authorization": f"Bearer {decrypt_message(access_token)}"}
 
 
 def get_rest_api_key_header():

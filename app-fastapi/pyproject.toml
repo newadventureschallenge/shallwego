@@ -5,6 +5,7 @@ description = "Add your description here"
 requires-python = ">=3.13"
 dependencies = [
     "aiosqlite>=0.21.0",
+    "cryptography>=45.0.2",
     "fastapi[standard]>=0.115.12",
     "korcen>=1.0.2",
     "langchain>=0.3.25",
@@ -12,10 +13,14 @@ dependencies = [
     "langchain-core>=0.3.61",
     "langchain-google-genai>=2.1.4",
     "langchain-openai>=0.3.18",
+    "langfuse>=2.60.5",
     "langgraph>=0.4.7",
     "langgraph-checkpoint-sqlite>=2.0.10",
     "orjson>=3.10.18",
     "pylint>=3.3.7",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.26.0",
+    "pytz>=2025.2",
     "sqlmodel>=0.0.24",
     "tzdata>=2025.2",
 ]
