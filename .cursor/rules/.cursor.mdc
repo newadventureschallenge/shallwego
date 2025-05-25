@@ -1,0 +1,24 @@
+---
+name: Shall We Go (갈까요) - 여행 계획 AI 챗봇 프로젝트 설명
+trigger: Always
+description:
+## 프로젝트 개요
+이 프로젝트는 여행용 챗봇 프로젝트 '갈까요(Shall We Go)' 입니다.
+대화를 통해 여행의 계획부터 일정 등록까지 도와주는 AI 에이전트 챗봇입니다.
+사용자는 에이전트와의 대화를 통해 여행 장소를 탐색하고, 맞춤형 여행 계획을 세우며, 카카오 톡캘린더에 일정을 저장할 수 있습니다.
+
+## 기술 스택
+- 프론트엔드(app-streamlit): Streamlit
+- 백엔드(app-fastapi): FastAPI
+- AI 연결: LangChain, LangGraph
+- 데이터베이스: SQLite, SQLModel
+
+## 코딩 규칙
+- 모든 코드는 Python으로 개발
+- PEP-008과 Google Python Style Guide 준수
+- 코드 품질 개선이 필요한 경우 자동으로 제안
+
+## 컨텍스트 사용
+- 프로젝트 관련 질문에 대해서는 context7을 사용하여 답변
+- 최신 기술 문서를 참조하여 코드 제안 
+---

@@ -1,0 +1,27 @@
+{
+    "folders": [
+	{
+	    "path": ".",
+            "name": "root"
+        },
+        {
+            "path": "app-fastapi",
+            "name": "app-fastapi"
+        },
+        {
+            "path": "app-streamlit",
+            "name": "app-streamlit"
+        }
+    ],
+    "settings": {
+        "python.analysis.extraPaths": [
+            "${workspaceFolder:app-streamlit}",
+            "${workspaceFolder:app-fastapi}"
+        ],
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+	"files.exclude": {
+	    "app-fastapi/": true,
+	    "app-streamlit/": true
+	  }
+    }
+}
