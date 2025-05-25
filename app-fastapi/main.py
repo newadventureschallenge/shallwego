@@ -43,11 +43,13 @@ app.include_router(chat_router.router)
 
 @app.get("/health")
 async def health_check():
+    """서버 헬스 체크 """
     return {"status": "ok"}
 
 
 @app.get("/")
 async def root():
+    """루트 페이지"""
     return {"message": "Welcome to the shallwego backend!"}
 
 

@@ -1,3 +1,7 @@
+"""
+시스템 프롬프트 CRUD 모듈
+"""
+
 from typing import List, Optional
 from sqlmodel import Session, select
 from models.prompt_models import SystemPrompt
@@ -24,6 +28,10 @@ def get_prompt(
     key: str,
     model_id: str
 ) -> SystemPrompt:
+    """
+    주어진 key와 model_id에 해당하는 시스템 프롬프트를 조회합니다.
+    """
+
     # 1) model_name이 같은 것 중 버전이 가장 높은 한 건 조회
     stmt = (
         select(SystemPrompt)

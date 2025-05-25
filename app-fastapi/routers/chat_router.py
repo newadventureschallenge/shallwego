@@ -1,4 +1,6 @@
 import os
+import time
+import uuid
 
 from dotenv import load_dotenv
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
@@ -47,7 +49,12 @@ async def websocket_endpoint(websocket: WebSocket):
         config = RunnableConfig(
             recursion_limit=100,
             configurable={"thread_id": req.user_id},  # 스레드 ID 설정
-            callbacks=[langfuse_handler]
+            callbacks=[langfuse_handler],
+            run_id=uuid.uuid4(),
+            run_name="agent-shallwego",
+            metadata={
+                "langfuse_session_id": req.user_id,
+            }
         )
 
         graph = get_graph('chatbot-agent')  # 그래프 가져오기
@@ -56,12 +63,13 @@ async def websocket_endpoint(websocket: WebSocket):
                 input={
                     "access_token": req.access_token,
                     "messages": req.message,
-                    "model_id": req.model_id
+                    "model_id": req.model_id,
+                    "nickname": req.nickname
                 },
                 stream_mode="messages",
                 config=config
         ):
-            if meta.get("langgraph_node") == "trimmed_messages":
+            if meta.get("langgraph_node") in ["trimmed_messages", "rag_recommendation", "scoring"]:
                 continue
 
             # chunk.content 가 비어있지 않으면 그대로 내보냄

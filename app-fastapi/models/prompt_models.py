@@ -9,6 +9,9 @@ from sqlmodel import SQLModel, Field
 
 
 class SystemPrompt(SQLModel, table=True):
+    """
+    시스템 프롬프트 모델 정의
+    """
     id: Optional[int] = Field(default=None, primary_key=True)
     key: str
     prompt: str

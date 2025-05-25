@@ -7,18 +7,13 @@ RUN apt-get update && \
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-WORKDIR /app/
-
-RUN mkdir -p /app/logs
+WORKDIR /app
 
 ENV PATH="/venv/bin:$PATH"
 
-COPY app/pyproject.toml ./
-COPY app/uv.lock* ./
+COPY . .
 
 RUN test -f uv.lock || uv lock && uv sync
-
-copy app .
 
 EXPOSE 8000
 

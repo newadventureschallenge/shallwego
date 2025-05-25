@@ -1,10 +1,11 @@
-# database.py
+"""
+Sqlite 데이터베이스 세션 관리 모듈
+"""
 
-from models.prompt_models import SystemPrompt
-
-from sqlmodel import SQLModel, create_engine, Session
 from contextlib import contextmanager
 from pathlib import Path
+
+from sqlmodel import SQLModel, create_engine, Session
 
 # core 폴더의 한 단계 상위(프로젝트 루트)로 설정
 BASE_DIR = Path(__file__).resolve().parent.parent

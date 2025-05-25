@@ -1,3 +1,7 @@
+"""
+카카오톡 캘린더 및 로컬 검색 관련 Enum 클래스 정의
+"""
+
 from enum import Enum
 
 

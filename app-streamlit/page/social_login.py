@@ -14,6 +14,7 @@ from utils import api_endpoints
 
 load_dotenv()
 
+# 쿠키 컨트롤러 초기화
 cookie_controller = CookieController(key=os.getenv('STREAMLIT_COOKIE_SECRET_KEY'))
 
 # 설정 로드
@@ -74,6 +75,7 @@ def display_user_info(access_token):
             # 닉네임을 세션 상태에 저장
             st.session_state.user_nickname = nickname
             st.session_state.user_id = user_id
+            st.session_state.nickname = nickname
 
             st.success(f"👋 **{nickname}**님, 안녕하세요!")
 

@@ -1,5 +1,5 @@
 """
-Tools Dataset 테스트 자동화
+Tools Dataset 테스트 자동화 - Cursor.AI 작성
 """
 import time
 import csv
@@ -12,7 +12,7 @@ import pandas as pd
 from websocket import create_connection, WebSocketConnectionClosedException
 
 from schemas.chat_schemas import ChatRequest
-from pages.social_login import ensure_valid_token
+from page.social_login import ensure_valid_token
 from utils import api_endpoints
 from utils.encryption import encrypt_message
 
@@ -55,7 +55,7 @@ def save_result_to_csv(tool_name, category, example_sentence, response, test_tim
         })
 
 
-def send_message_and_get_response(message, user_id, access_token, model_id):
+def send_message_and_get_response(message, user_id, access_token, model_id, nickname):
     """메시지를 보내고 응답을 받습니다."""
     ws = None
     full_response = ""
@@ -65,6 +65,7 @@ def send_message_and_get_response(message, user_id, access_token, model_id):
         ws = create_connection(api_endpoints.CHAT_API_URL)
         req = ChatRequest(
             message=message,
+            nickname=nickname,
             user_id=user_id,
             access_token=encrypt_message(access_token),
             model_id=model_id
@@ -118,7 +119,8 @@ def run_dataset_test():
     
     access_token = str(st.session_state.token.get("access_token"))
     user_id = str(st.session_state.get("user_id"))
-    model_id = st.session_state.get("llm", "gpt-4")
+    nickname = str(st.session_state.get("nickname", "사용자"))
+    model_id = st.session_state.get("llm", "openai-gpt-4.1-mini")
     
     # 데이터셋 로드
     df = load_tools_dataset()
@@ -154,7 +156,7 @@ def run_dataset_test():
         try:
             # 메시지 전송 및 응답 받기
             response, test_time = send_message_and_get_response(
-                example_sentence, user_id, access_token, model_id
+                example_sentence, user_id, access_token, model_id, nickname
             )
             
             # 결과 저장
