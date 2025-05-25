@@ -40,6 +40,8 @@
 ![캘린더 연동 2](./images/8_calendar.png)
 ![캘린더 연동 3](./images/9_calendar.png)
 ![캘린더 연동 4](./images/10_calendar.png)
+- 추적 및 모니터링 시스템 연동
+![Langfuse](./images/11_langfuse.png)
 
 ## 프로젝트 구조
 
@@ -57,7 +59,6 @@ shallwego/
 │   ├── data/                    # 데이터 파일
 │   ├── models/                  # 데이터베이스 모델
 │   ├── routers/                 # API 라우터
-│   │   └── chat_router.py       # 채팅 API 엔드포인트
 │   ├── schemas/                 # Pydantic 스키마
 │   ├── tools/                   # 에이전트 도구 구현
 │   │   ├── calendar_tools.py    # 캘린더 연동 도구
@@ -74,14 +75,9 @@ shallwego/
 │
 ├── app-streamlit/               # Streamlit 프론트엔드
 │   ├── page/                    # 페이지 컴포넌트
-│   │   ├── chat.py              # 채팅 페이지
-│   │   ├── options.py           # 옵션 설정 페이지
-│   │   └── social_login.py      # 소셜 로그인 페이지
 │   ├── resources/               # 리소스 파일
 │   ├── schemas/                 # 데이터 스키마
 │   ├── utils/                   # 유틸리티 함수
-│   │   ├── api_endpoints.py     # API 엔드포인트 설정
-│   │   └── encryption.py        # 암호화 유틸리티
 │   ├── dataset/                 # 데이터셋
 │   ├── .streamlit/              # Streamlit 설정
 │   ├── main.py                  # Streamlit 애플리케이션 진입점
@@ -97,10 +93,11 @@ shallwego/
 
 ## 사용 기술 및 아키텍처
 - 전체 아키텍처
-
+![Architecture](./images/12_architecture.png)
+자세한 내용은 [docs/phase2/architecture.md](docs/phase2/architecture.md) 참고
 - LangGraph
 ![LangGraph](./images/agent_graph_mermaid.png)
-자세한 내용은 phase2/langchain_graph.md 참고
+자세한 내용은 [docs/phase2/langchain_graph.md](docs/phase2/langchain_graph.md) 참고
 
 ## 일정
 
@@ -109,7 +106,7 @@ shallwego/
 
 ## 실행 방법
 
-### Docker를 이용한 실행 (권장)
+#### Docker를 이용한 실행
 
 1. **각 애플리케이션 Docker 빌드**
    ```bash
@@ -118,14 +115,18 @@ shallwego/
    docker build -f app-fastapi.Dockerfile -t shallwego-backend .
    
    # Streamlit 프론트엔드 빌드
-   cd ../app-streamlit
+   cd app-streamlit
    docker build -f app-streamlit.Dockerfile -t shallwego-frontend .
    ```
 
 2. **필수 설정 파일 작성**
    - `app-fastapi/.env`: 백엔드 환경 변수
+   - `app-fastapi/utils/api_endpoints.py`: API 엔드포인트 설정
+   - `app-streamlit/.env`: 프론트엔드 환경 변수
    - `app-streamlit/.streamlit/secrets.toml`: Streamlit 시크릿 설정
    - `app-streamlit/utils/api_endpoints.py`: API 엔드포인트 설정
+
+   [docs/phase2/setting.md](docs/phase2/setting.md) 참고
 
 3. **컨테이너 실행**
    ```bash
@@ -143,4 +144,4 @@ shallwego/
 
 ##### 기타 문서는 docs 내 phase1, phase2 폴더 참고
 
-이 문서는 AI 도구(ChatGPT, Claude)로 작성했습니다.
+이 문서는 AI 도구(ChatGPT, Claude, Gemini)로 작성했습니다.
